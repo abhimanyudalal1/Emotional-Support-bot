@@ -1,4 +1,4 @@
-** 🧠 Emotional Support Chatbot – Relie****
+**** 🧠 Emotional Support Chatbot – Relie******
 
 Relie is a full-stack AI-powered **emotional support chatbot** designed to offer empathetic, safe, and non-judgmental conversations to users. Built using **React** (frontend) and **Flask** (backend), it integrates **Groq’s LLM API** to deliver thoughtful and helpful responses in real-time.
 
