@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
 import EmojiPicker from 'emoji-picker-react';
@@ -17,8 +17,6 @@ function App() {
   const emojiRef = useRef(null);
   const isDragging = useRef(false);
 
-  const BACKEND_URL = 'https://relie-backend-zq69.onrender.com/chat';
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -30,6 +28,7 @@ function App() {
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem('relie_history')) || [];
     setChatHistory(history);
+
     if (history.length === 0) {
       setMessages([
         {
@@ -79,7 +78,7 @@ function App() {
     setShowEmojiPicker(false);
 
     try {
-      const res = await fetch(BACKEND_URL, {
+      const res = await fetch('https://relie-backend-zq69.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userId, message: input })
@@ -109,7 +108,7 @@ function App() {
     setShowEmojiPicker(false);
 
     try {
-      const res = await fetch(BACKEND_URL, {
+      const res = await fetch('https://relie-backend-zq69.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userId, message: prompt })
@@ -152,18 +151,21 @@ function App() {
   };
 
   const toggleDarkMode = () => setDarkMode(prev => !prev);
+
   const loadChatFromHistory = (id) => {
     const history = chatHistory.find(h => h.id === id);
     if (history) setMessages(history.messages);
   };
 
-  const startDrag = () => { isDragging.current = true; };
-  const stopDrag = () => { isDragging.current = false; };
-  const onDrag = (e) => {
+  const onDrag = useCallback((e) => {
     if (!isDragging.current || isMobile) return;
     const newWidth = e.clientX;
     if (newWidth > 200 && newWidth < 500) setSidebarWidth(newWidth);
-  };
+  }, [isMobile]);
+
+  const stopDrag = useCallback(() => {
+    isDragging.current = false;
+  }, []);
 
   useEffect(() => {
     document.addEventListener('mousemove', onDrag);
@@ -172,7 +174,9 @@ function App() {
       document.removeEventListener('mousemove', onDrag);
       document.removeEventListener('mouseup', stopDrag);
     };
-  }, [isMobile]);
+  }, [onDrag, stopDrag]);
+
+  const startDrag = () => { isDragging.current = true; };
 
   return (
     <div className={`app-container ${darkMode ? 'dark' : 'light'}`}>
