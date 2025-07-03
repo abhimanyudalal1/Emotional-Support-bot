@@ -1,0 +1,45 @@
+# =======================
+# React (Frontend)
+# =======================
+client/node_modules/
+client/build/
+client/.env
+client/.pnp
+client/.pnp.js
+client/coverage
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+client/.DS_Store
+
+# =======================
+# Flask (Backend)
+# =======================
+server/venv/
+server/__pycache__/
+server/instance/
+server/.env
+server/*.pyc
+server/.DS_Store
+
+# =======================
+# General System Files
+# =======================
+*.log
+*.swp
+*.swo
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# =======================
+# VS Code
+# =======================
+.vscode/
+
+# =======================
+# Python cache
+# =======================
+**/__pycache__/
+**/*.py[cod]
