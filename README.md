@@ -87,10 +87,14 @@ GROQ_API_KEY	 Your Groq LLM API Key
 
 **🛡️ Mental Health Safety Note**
 Relie is designed with care. It monitors for trigger words like "suicide", "self-harm", or "kill myself" and responds with appropriate caution and recommendations to contact professionals. However, Relie is not a replacement for professional mental health services.
+
+
 **
 🙌 Author**
 Developed by **Siddhartha Namilikonda**
 SR University | Computer Science Engineering
+
+
 **
 📄 License**
 This project is open source and available under the MIT License.
