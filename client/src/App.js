@@ -17,6 +17,8 @@ function App() {
   const emojiRef = useRef(null);
   const isDragging = useRef(false);
 
+  const BACKEND_URL = 'https://relie-backend-zq69.onrender.com/chat';
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -28,7 +30,6 @@ function App() {
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem('relie_history')) || [];
     setChatHistory(history);
-
     if (history.length === 0) {
       setMessages([
         {
@@ -78,7 +79,7 @@ function App() {
     setShowEmojiPicker(false);
 
     try {
-      const res = await fetch('http://127.0.0.1:5000/chat', {
+      const res = await fetch(BACKEND_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userId, message: input })
@@ -108,7 +109,7 @@ function App() {
     setShowEmojiPicker(false);
 
     try {
-      const res = await fetch('http://127.0.0.1:5000/chat', {
+      const res = await fetch(BACKEND_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userId, message: prompt })
@@ -151,7 +152,6 @@ function App() {
   };
 
   const toggleDarkMode = () => setDarkMode(prev => !prev);
-
   const loadChatFromHistory = (id) => {
     const history = chatHistory.find(h => h.id === id);
     if (history) setMessages(history.messages);
