@@ -9,7 +9,7 @@ CORS(app)
 # Gemini API key from environment variable
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={GEMINI_API_KEY}"
-MODEL = "gemini-1.5-flash-latest"
+MODEL = "gemini-2.5-flash-latest"
 
 TRIGGER_WORDS = ["suicide", "self-harm", "kill myself", "hurt me"]
 session_memory = {}
