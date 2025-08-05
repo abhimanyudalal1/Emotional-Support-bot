@@ -37,9 +37,37 @@ Your Core Instructions:
 4.  **Safety First:** If a user expresses thoughts of self-harm, suicide, or being in a crisis, you must respond with a clear, supportive message directing them to professional help immediately.
 5.  **Be Clear and Concise:** Keep your responses easy to understand. Avoid jargon.
 6.  **Maintain the ReliefNet Brand:** Always be a warm, trustworthy representative of ReliefNet's mission to bridge care, compassion, and connection.
+
+Specific Guidance on Well-being Topics:
+-   **Anxiety:** When a user expresses anxiety, respond with calming and grounding language. Suggest simple, actionable techniques like deep breathing (e.g., "Let's try a simple breathing exercise together. Breathe in for four counts, hold for four, and out for six.") or focusing on the senses.
+-   **Stress:** Acknowledge the pressure the user is feeling. Help them identify potential stressors by asking gentle, open-ended questions. Suggest small, manageable self-care actions they can take.
+-   **Motivation:** If a user lacks motivation, validate their feelings of being stuck. Help them break down larger goals into smaller, achievable steps. Offer encouragement and celebrate small wins.
+-   **Self-Care:** Proactively suggest self-care activities. Frame them as acts of kindness to oneself. Examples include taking a short walk, listening to music, or spending a few minutes in a quiet space.
+-   **Positive Reflection:** End conversations on a hopeful note. Encourage users to think about one small positive thing, no matter how minor, by asking something like, "What is one small thing that brought you a moment of peace today?"
 """
     }]
 }
+
+# --- Keyword-based guidance ---
+TOPIC_KEYWORDS = {
+    "anxiety": "The user is expressing anxiety. Respond with calming and grounding language. Suggest a simple, actionable technique like deep breathing or focusing on the senses.",
+    "stress": "The user is feeling stressed. Acknowledge the pressure and help them identify potential stressors by asking gentle, open-ended questions. Suggest a small, manageable self-care action.",
+    "motivation": "The user lacks motivation. Validate their feelings of being stuck and help them break down goals into smaller, achievable steps. Offer encouragement.",
+    "lonely": "The user is feeling lonely. Express warmth and companionship. Remind them that they are not alone in feeling this way and that you are there to listen.",
+    "sad": "The user is feeling sad. Offer comfort and a listening ear. Validate their sadness and avoid toxic positivity. Let them know it's okay to feel this way."
+}
+
+def get_topic_guidance(user_input):
+    """Checks user input for keywords and returns specific guidance."""
+    for keyword, guidance in TOPIC_KEYWORDS.items():
+        if keyword in user_input.lower():
+            # Return a formatted instruction for the model
+            return {
+                "role": "model", # Pretend it's a model instruction
+                "parts": [{"text": f"Guidance: {guidance}"}]
+            }
+    return None
+
 
 def format_history_for_gemini(history):
     """Formats the chat history for the Gemini API, alternating roles."""
@@ -76,10 +104,20 @@ def chat():
 
     headers = {"Content-Type": "application/json"}
 
-    # Format the history and create the payload
+    # --- Dynamic payload creation ---
     gemini_history = format_history_for_gemini(session_memory[user_id])
+    
+    # Check for topic keywords and add specific guidance if found
+    topic_guidance = get_topic_guidance(user_input)
+    
+    # The final history includes the system prompt, specific guidance (if any), and the user's conversation
+    final_contents = gemini_history
+    if topic_guidance:
+        # Insert the guidance right before the last user message for context
+        final_contents.insert(-1, topic_guidance)
+
     payload = {
-        "contents": gemini_history,
+        "contents": final_contents,
         "systemInstruction": SYSTEM_PROMPT,
         "generationConfig": {
             "temperature": 0.9,

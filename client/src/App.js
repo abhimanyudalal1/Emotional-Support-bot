@@ -230,7 +230,13 @@ function App() {
         </div>
 
         <div className="prompt-suggestions">
-          {["I'm feeling stressed", "Give me motivation", "I need help sleeping", "Tell me a joke", "What can you do?"].map((prompt, idx) => (
+          {[
+            "I'm feeling anxious",
+            "I'm feeling stressed lately",
+            "I have no motivation",
+            "I'm feeling a bit sad",
+            "Suggest a self-care idea"
+          ].map((prompt, idx) => (
             <button key={idx} className="prompt-btn" onClick={() => handlePromptSend(prompt)}>
               {prompt}
             </button>
