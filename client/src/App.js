@@ -89,7 +89,7 @@ function App() {
       const newMessages = [...updatedMessages, botMsg];
       setMessages(newMessages);
       saveChatHistory(newMessages);
-    } catch (error) {
+    } catch (error)_ {
       console.error("Send error:", error);
       const errorReply = {
         sender: 'bot',
