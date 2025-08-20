@@ -1,111 +1,86 @@
- **🧠 Emotional Support Chatbot – Relie**
+# Emotional Support Bot
 
-Relie is a full-stack AI-powered **emotional support chatbot** designed to offer empathetic, safe, and non-judgmental conversations to users. Built using **React** (frontend) and **Flask** (backend), it integrates **Groq’s LLM API** to deliver thoughtful and helpful responses in real-time.
+This project is a web-based emotional support chatbot. It features a friendly user interface for interacting with an AI-powered bot designed to provide a supportive and empathetic conversational experience.
 
----
+## Project Structure
 
-## 🌐 Live Application
+The project is organized into two main parts:
 
-- **Frontend (React)**: [https://emotional-support-bot.netlify.app](https://emotional-support-bot.netlify.app)  
-- **Backend (Flask API)**: [https://relie-backend-zq69.onrender.com](https://relie-backend-zq69.onrender.com)
+-   `client/`: A React application that provides the user interface for the chatbot.
+-   `server/`: A Flask (Python) backend that handles the chat logic and integrates with the OpenAI API.
 
----
+## Getting Started
 
-## ✨ Features
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-- 🤖 Friendly and supportive chatbot (Relie)
-- 💬 Real-time conversation handling
-- 😃 Emoji picker for expressive chatting
-- 💡 Prompt-based suggestions
-- 📜 Chat history stored locally (browser storage)
-- 💾 Option to download chat transcripts as `.txt`
-- 🌓 Dark / Light mode toggle
-- 📱 Mobile responsive interface
-- 🚨 Trigger word detection for mental health safety
+### Prerequisites
 
----
+-   Node.js and npm (for the React client)
+-   Python 3.x and pip (for the Flask server)
+-   An OpenAI API key
 
-## 🧱 Tech Stack
+### Installation
 
-| Layer        | Technology            |
-|--------------|------------------------|
-| Frontend     | React, Emoji Picker    |
-| Backend      | Flask, Groq API        |
-| Styling      | CSS                    |
-| Deployment   | Netlify (frontend), Render (backend) |
+1.  **Clone the repository:**
 
----
+    ```bash
+    git clone https://github.com/your-username/Emotional-Support-bot.git
+    cd Emotional-Support-bot
+    ```
 
-## 📂 Project Structure
-reliefnet_ai_assistant/
-├── client/ # React frontend
-│ └── src/
-│ └── App.js # Main chatbot component
-├── server/ # Flask backend
-│ └── app.py # REST API to handle chat
-├── requirements.txt # Python backend dependencies
-└── README.md # Project documentation
+2.  **Set up the backend:**
 
+    -   Navigate to the `server` directory:
+        ```bash
+        cd server
+        ```
+    -   Create a virtual environment:
+        ```bash
+        python3 -m venv venv
+        source venv/bin/activate
+        ```
+    -   Install the required Python packages:
+        ```bash
+        pip install -r requirements.txt
+        ```
+    -   Create a `.env` file in the `server` directory and add your OpenAI API key:
+        ```
+        OPENAI_API_KEY='your-openai-api-key'
+        ```
 
+3.  **Set up the frontend:**
 
----
+    -   Navigate to the `client` directory:
+        ```bash
+        cd ../client
+        ```
+    -   Install the required npm packages:
+        ```bash
+        npm install
+        ```
 
-## ⚙️ Getting Started Locally
+### Running the Application
 
-### ✅ Backend Setup (Flask)
+1.  **Start the backend server:**
 
-1. Navigate to the backend directory:
-   ```bash
-   cd server
-2.Install Python dependencies:
-pip install -r requirements.txt
+    -   Make sure you are in the `server` directory with the virtual environment activated.
+    -   Run the Flask application:
+        ```bash
+        gunicorn app:app
+        ```
+    -   The server will start on `http://127.0.0.1:8000`.
 
-3.Set your Groq API key as an environment variable:
-export GROQ_API_KEY=your_api_key_here   # For Linux/Mac
-set GROQ_API_KEY=your_api_key_here      # For Windows CMD
+2.  **Start the frontend client:**
 
-4.Run the Flask server:
-python app.py
+    -   Make sure you are in the `client` directory.
+    -   Run the React application:
+        ```bash
+        npm start
+        ```
+    -   The client will start on `http://localhost:3000` and will open automatically in your browser.
 
-**✅ Frontend Setup (React)**
-1.Navigate to the client directory:
-cd client
+## Built With
 
-2.Install dependencies:
-npm install
-
-3.Start the React app:
-npm start
-
-4.The frontend will open at http://localhost:3000 and send requests to the Flask backend.
-
-**📦 Environment Variables**
-Ensure the following environment variable is set in your deployment (e.g., on Render):
-
-Variable Name 	Description
-GROQ_API_KEY	 Your Groq LLM API Key
-
-**🛡️ Mental Health Safety Note**
-Relie is designed with care. It monitors for trigger words like "suicide", "self-harm", or "kill myself" and responds with appropriate caution and recommendations to contact professionals. However, Relie is not a replacement for professional mental health services.
-
-
-**
-🙌 Author**
-Developed by **Siddhartha Namilikonda**
-SR University | Computer Science Engineering
-
-
-**
-📄 License**
-This project is open source and available under the MIT License.
-
-
----
-
-### ✅ Final Step:
-Once you've added this `README.md` file in your root directory:
-
-```bash
-git add README.md
-git commit -m "📘 Added complete professional README"
-git push origin main
+-   [React](https://reactjs.org/) - The web framework used for the client.
+-   [Flask](https://flask.palletsprojects.com/) - The web framework used for the server.
+-   [OpenAI API](https://openai.com/docs) - Used for the chatbot's intelligence.
